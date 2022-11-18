@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.function.Supplier;
+
 
 @SpringBootApplication
 @Slf4j
@@ -13,13 +15,7 @@ public class Application {
 
     public static void main(String[] args) {
         var ctx = SpringApplication.run(Application.class, args);
-        Vehicle vehicle = ctx.getBean("audiVehicle", Vehicle.class);
-        Vehicle coolVehicle = ctx.getBean("coolVehicle", Vehicle.class); // con nombre del @Bean
-
-        log.info("normal vehicle: {}", vehicle);
-        log.info("cool vehicle: {}", coolVehicle);
-
-        Vehicle defaultVehicle = ctx.getBean(Vehicle.class); // por default con @Primary
+        Vehicle defaultVehicle = ctx.getBean(Vehicle.class);
         log.info("default vehicle: {}", defaultVehicle);
 
     }
