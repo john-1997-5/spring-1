@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
-@Component("coolVehicle")
+@Component("ChevyVehicle")
 @Getter
 @Setter
 @ToString

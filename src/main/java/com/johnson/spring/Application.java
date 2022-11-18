@@ -1,5 +1,6 @@
 package com.johnson.spring;
 
+import com.johnson.spring.domain.Person;
 import com.johnson.spring.domain.Vehicle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -15,8 +16,8 @@ public class Application {
 
     public static void main(String[] args) {
         var ctx = SpringApplication.run(Application.class, args);
-        Vehicle defaultVehicle = ctx.getBean(Vehicle.class);
-        log.info("default vehicle: {}", defaultVehicle);
+        Person person = ctx.getBean(Person.class);
+        log.info("person: {}", person);
 
     }
 
