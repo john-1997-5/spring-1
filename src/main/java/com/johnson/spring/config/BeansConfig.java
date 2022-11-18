@@ -1,5 +1,8 @@
 package com.johnson.spring.config;
 
+import com.johnson.spring.domain.AudiVehicle;
+import com.johnson.spring.domain.ChevyVehicle;
+import com.johnson.spring.domain.TeslaVehicle;
 import com.johnson.spring.domain.Vehicle;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +13,7 @@ import org.springframework.context.annotation.Primary;
  * La etiqueta @Configuration indica que la clase tiene una definición de un bean method.
  * De este modo el contenedor procesa la clase y genera el bean definido
  */
-@Configuration
+//@Configuration
 public class BeansConfig {
 
     /**
@@ -21,12 +24,12 @@ public class BeansConfig {
      */
     @Bean
     public Vehicle vehicle() { // el bean se llamará "vehicle" (minúscula)
-        return new Vehicle("Audi 8");
+        return new AudiVehicle();
     }
 
     @Bean("coolVehicle")
     public Vehicle getCoolVehicle() { // el bean se llamará coolVehicle
-        return new Vehicle("Chevy molón");
+        return new ChevyVehicle();
     }
 
     /**
@@ -36,7 +39,7 @@ public class BeansConfig {
     @Primary
     @Bean
     public Vehicle getDefaultVehicle() {
-        return new Vehicle("Tesla model");
+        return new TeslaVehicle();
     }
 
 }
