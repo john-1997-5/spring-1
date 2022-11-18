@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Primary // default vehicle
+//@Primary // default vehicle
 @Component
 @Getter
 @Setter
