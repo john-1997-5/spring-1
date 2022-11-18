@@ -1,12 +1,10 @@
 package com.johnson.spring.config;
 
-import com.johnson.spring.domain.AudiVehicle;
-import com.johnson.spring.domain.ChevyVehicle;
-import com.johnson.spring.domain.TeslaVehicle;
-import com.johnson.spring.domain.Vehicle;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.johnson.spring.domain.vehicle.AudiVehicle;
+import com.johnson.spring.domain.vehicle.ChevyVehicle;
+import com.johnson.spring.domain.vehicle.TeslaVehicle;
+import com.johnson.spring.domain.vehicle.Vehicle;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /**

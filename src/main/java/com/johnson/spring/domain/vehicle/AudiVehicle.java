@@ -1,5 +1,6 @@
-package com.johnson.spring.domain;
+package com.johnson.spring.domain.vehicle;
 
+import com.johnson.spring.service.VehicleService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @ToString
-public class AudiVehicle implements Vehicle{
+public class AudiVehicle implements Vehicle {
     private String model;
 
     @Autowired
-    private Person owner;
+    private VehicleService vehicleService;
 
     public AudiVehicle() {
         this.model = "Audi R8";
