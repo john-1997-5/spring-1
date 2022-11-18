@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
-@Scope(BeanDefinition.SCOPE_SINGLETON)  // no es necesario ya que es singleton por defecto
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)  // no es necesario ya que es singleton por defecto
 public class VehicleService {
     @Autowired
     private Speaker sonySpeaker;
