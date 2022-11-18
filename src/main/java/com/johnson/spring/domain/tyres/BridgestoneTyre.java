@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 public class BridgestoneTyre implements Tyre{
     @Override
     public void rotate() {
-        log.info("bridgestone strong durability!");
+        log.info("-> Rodando con neumáticos Michelin");
+    }
+
+    @Override
+    public void stop() {
+        log.info("-> Frenado con neumáticos Bridgestone");
     }
 }
