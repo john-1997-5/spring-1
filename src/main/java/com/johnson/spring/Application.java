@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @Slf4j
@@ -17,12 +18,12 @@ public class Application {
     public static void main(String[] args) {
         var ctx = SpringApplication.run(Application.class, args);
         VehicleService vehicleService = ctx.getBean(VehicleService.class);
+        log.info("bean of type {}\n", vehicleService.getClass());
         //Song song = ctx.getBean(Song.class); no crees beans de POJO's
         Song song = new Song();
         vehicleService.playMusic(true, song);
         vehicleService.move(true);
         vehicleService.brake(true);
-
     }
 
 }
