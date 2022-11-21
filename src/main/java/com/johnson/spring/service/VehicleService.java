@@ -24,27 +24,14 @@ public class VehicleService {
     private Tyre tyre;
 
     public void playMusic(boolean vehicleStarted, Song song) {
-        if (vehicleStarted) {
-            speaker.makeSound(song);
-        } else {
-            log.error("Vehicle not started to perform the operation");
-        }
+        speaker.makeSound(song);
     }
 
     public void move(boolean vehicleStarted) {
-        if (vehicleStarted) {
-            tyre.rotate();
-        } else {
-            log.error("Vehicle not started to perform the operation");
-        }
-
+        tyre.rotate();
     }
 
     public void brake(boolean vehicleStarted) {
-        if (vehicleStarted) {
-            tyre.stop();
-        } else {
-            log.error("Vehicle not started to perform the operation");
-        }
+        tyre.stop();
     }
 }

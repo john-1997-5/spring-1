@@ -19,9 +19,9 @@ public class Application {
         var ctx = SpringApplication.run(Application.class, args);
         VehicleService vehicleService = ctx.getBean(VehicleService.class);
         log.info("bean of type {}\n", vehicleService.getClass());
-        //Song song = ctx.getBean(Song.class); no crees beans de POJO's
+
         Song song = new Song();
-        vehicleService.playMusic(true, song);
+        vehicleService.playMusic(false, song);
         vehicleService.move(true);
         vehicleService.brake(true);
     }
