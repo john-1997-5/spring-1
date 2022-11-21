@@ -25,23 +25,26 @@ public class VehicleService {
     private Tyre tyre;
 
     public void playMusic(boolean vehicleStarted, Song song) throws VehicleNotStartedException {
-        if (vehicleStarted) {
-            speaker.makeSound(song);
+        if (!vehicleStarted) {
+            throw new VehicleNotStartedException("Vehicle not started!");
         }
-        throw new VehicleNotStartedException("Vehicle not started!");
+        speaker.makeSound(song);
+
     }
 
     public void move(boolean vehicleStarted) throws VehicleNotStartedException {
-        if (vehicleStarted) {
-            tyre.rotate();
+        if (!vehicleStarted) {
+            throw new VehicleNotStartedException("Vehicle not started!");
         }
-        throw new VehicleNotStartedException("Vehicle not started!");
+        tyre.rotate();
+
     }
 
     public void brake(boolean vehicleStarted) throws VehicleNotStartedException {
-        if (vehicleStarted) {
-            tyre.stop();
+        if (!vehicleStarted) {
+            throw new VehicleNotStartedException("Vehicle not started!");
         }
-        throw new VehicleNotStartedException("Vehicle not started!");
+        tyre.stop();
+
     }
 }
