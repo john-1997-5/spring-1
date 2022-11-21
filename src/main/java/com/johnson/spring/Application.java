@@ -22,7 +22,7 @@ public class Application {
         log.info("bean of type {}\n", vehicleService.getClass());
 
         Song song = new Song();
-        vehicleService.playMusic(false, song);
+        vehicleService.playMusic(true, song);
         vehicleService.move(true);
         vehicleService.brake(true);
     }

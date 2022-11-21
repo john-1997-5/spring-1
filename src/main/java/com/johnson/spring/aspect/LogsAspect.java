@@ -4,6 +4,7 @@ import com.johnson.spring.exception.VehicleNotStartedException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -46,5 +47,10 @@ public class LogsAspect {
     @AfterThrowing(value = "execution(* com.johnson.spring.service.*.*(..))", throwing = "ex" )
     public void logException(JoinPoint joinPoint, VehicleNotStartedException ex) {
         log.error("Error in method: {}() -> {}", joinPoint.getSignature().getName(), ex.getMessage());
+    }
+
+    @AfterReturning("execution(* com.johnson.spring.service.*.*(..))")
+    public void logStatus(JoinPoint joinPoint) {
+        log.info("{}() executed succesfully!", joinPoint.getSignature().getName());
     }
 }
