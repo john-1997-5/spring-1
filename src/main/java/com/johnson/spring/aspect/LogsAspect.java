@@ -4,11 +4,7 @@ import com.johnson.spring.exception.VehicleNotStartedException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.core.annotation.Order;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -27,7 +23,7 @@ public class LogsAspect {
      * @param proceedingJoinPoint permite proseguir con la ejecución del método después de ejecutar cierta lógica
      * @throws Throwable
      */
-    @Around("execution(* com.johnson.spring.service.*.*(..))")
+    @Around("com.johnson.spring.aspect.pointcut.PointcutService.getPointcut()")
     public void log(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         log.info("start of {}()", proceedingJoinPoint.getSignature().getName());
         Instant start = Instant.now();
@@ -44,12 +40,12 @@ public class LogsAspect {
      * @param joinPoint
      * @param ex
      */
-    @AfterThrowing(value = "execution(* com.johnson.spring.service.*.*(..))", throwing = "ex" )
+    @AfterThrowing(value = "com.johnson.spring.aspect.pointcut.PointcutService.getPointcut()", throwing = "ex" )
     public void logException(JoinPoint joinPoint, VehicleNotStartedException ex) {
         log.error("Error in method: {}() -> {}", joinPoint.getSignature().getName(), ex.getMessage());
     }
 
-    @AfterReturning("execution(* com.johnson.spring.service.*.*(..))")
+    @AfterReturning("com.johnson.spring.aspect.pointcut.PointcutService.getPointcut()")
     public void logStatus(JoinPoint joinPoint) {
         log.info("{}() executed succesfully!", joinPoint.getSignature().getName());
     }
