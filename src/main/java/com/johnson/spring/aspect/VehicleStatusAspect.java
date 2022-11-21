@@ -9,9 +9,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Aspect
+//@Aspect
 @Slf4j
-@Order(0)
+//@Order(0)
 public class VehicleStatusAspect {
     /**
      * Ejecuta el siguiente aspecto para todas los métodos de todas las clases dentro del paquete

@@ -3,6 +3,7 @@ package com.johnson.spring.service;
 import com.johnson.spring.domain.song.Song;
 import com.johnson.spring.domain.speaker.Speaker;
 import com.johnson.spring.domain.tyres.Tyre;
+import com.johnson.spring.exception.VehicleNotStartedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,15 +24,24 @@ public class VehicleService {
     @Autowired
     private Tyre tyre;
 
-    public void playMusic(boolean vehicleStarted, Song song) {
-        speaker.makeSound(song);
+    public void playMusic(boolean vehicleStarted, Song song) throws VehicleNotStartedException {
+        if (vehicleStarted) {
+            speaker.makeSound(song);
+        }
+        throw new VehicleNotStartedException("Vehicle not started!");
     }
 
-    public void move(boolean vehicleStarted) {
-        tyre.rotate();
+    public void move(boolean vehicleStarted) throws VehicleNotStartedException {
+        if (vehicleStarted) {
+            tyre.rotate();
+        }
+        throw new VehicleNotStartedException("Vehicle not started!");
     }
 
-    public void brake(boolean vehicleStarted) {
-        tyre.stop();
+    public void brake(boolean vehicleStarted) throws VehicleNotStartedException {
+        if (vehicleStarted) {
+            tyre.stop();
+        }
+        throw new VehicleNotStartedException("Vehicle not started!");
     }
 }

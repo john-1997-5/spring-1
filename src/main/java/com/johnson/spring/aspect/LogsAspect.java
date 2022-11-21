@@ -1,7 +1,10 @@
 package com.johnson.spring.aspect;
 
+import com.johnson.spring.exception.VehicleNotStartedException;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.annotation.Order;
@@ -13,7 +16,7 @@ import java.time.Instant;
 @Component
 @Aspect
 @Slf4j
-@Order(1)
+//@Order(1)
 public class LogsAspect {
 
     /**
@@ -34,4 +37,14 @@ public class LogsAspect {
         log.info("end of {}()\n", proceedingJoinPoint.getSignature().getName());
     }
 
+    /**
+     * Aspecto que se ejecuta cuando hay excepción en el pointcut
+     * Mirar que el nombre de la excepción debe coincidir con la de throwing
+     * @param joinPoint
+     * @param ex
+     */
+    @AfterThrowing(value = "execution(* com.johnson.spring.service.*.*(..))", throwing = "ex" )
+    public void logException(JoinPoint joinPoint, VehicleNotStartedException ex) {
+        log.error("Error in method: {}() -> {}", joinPoint.getSignature().getName(), ex.getMessage());
+    }
 }
