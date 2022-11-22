@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,28 +18,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class HolidayController {
 
-    /**
-     * El nombre de los parámetros ha de ser igual a como se les pasa por front
-     *
-     * <li><a th:href="@{/holidays(festival='true', federal='true')}">Holidays</a></li>
-     *
-     * festival y federal han de respetarse, de modo que cuando se usen en el back
-     * o se usa el mismo nombre para el nombre de los parámetros, o se usa el nombre de
-     * parámetro que se quiera pero en el atributo value="" tiene que ir el nombre
-     * que tiene en front.
-     *
-     * @param festival
-     * @param federalHoliday
-     * @param model
-     * @return
-     */
-    @GetMapping("/holidays")
-    public String displayHolidays(@RequestParam(required = false) String festival,
-                                  @RequestParam(required = true, value = "federal") String federalHoliday,
-                                  Model model) {
+    @GetMapping("/holidays/{display}")
+    public String displayHolidays(@PathVariable String display, Model model) {
+        boolean festival = display.equals("all") || display.equals("festival");
+        boolean federal = display.equals("all") || display.equals("federal");
 
-        model.addAttribute("festival", festival);
-        model.addAttribute("federal", federalHoliday);
+        model.addAttribute("festival",festival);
+        model.addAttribute("federal",federal);
+
         List<Holiday> holidays = Arrays.asList(
                 new Holiday(" Jan 1 ", "New Year's Day", HolidayType.FESTIVAL),
                 new Holiday(" Oct 31 ", "Halloween", HolidayType.FESTIVAL),
