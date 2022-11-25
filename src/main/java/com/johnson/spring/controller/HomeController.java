@@ -32,7 +32,9 @@ public class HomeController {
             return "contact.html"; // mantiene la misma sesión (no refresca la página)
         }
         boolean messageSaved = contactService.saveMessage(contact);
+        contactService.setCounter(contactService.getCounter() + 1);
         log.info("saved message? -> {}", messageSaved);
+        log.info("ContactService Bean counter: {}", contactService.getCounter());
         return "redirect:/contact"; // ejecuta dicho endpoint nuevamente (refresco)
     }
 
