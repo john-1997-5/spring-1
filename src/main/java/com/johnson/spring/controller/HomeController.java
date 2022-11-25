@@ -34,7 +34,7 @@ public class HomeController {
         boolean messageSaved = contactService.saveMessage(contact);
         contactService.setCounter(contactService.getCounter() + 1);
         log.info("saved message? -> {}", messageSaved);
-        log.info("ContactService Bean counter: {}", contactService.getCounter());
+        log.info("ContactService Bean counter: {}\n", contactService.getCounter());
         return "redirect:/contact"; // ejecuta dicho endpoint nuevamente (refresco)
     }
 
