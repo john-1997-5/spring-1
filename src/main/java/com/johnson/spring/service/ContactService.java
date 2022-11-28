@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @ApplicationScope
 //@SessionScope
@@ -29,5 +30,9 @@ public class ContactService {
         contact.setCreatedAt(LocalDateTime.now());
         int saved = contactRepository.saveContact(contact);
         return saved > 0;
+    }
+
+    public List<Contact> findMessagesWithOpenStatus() {
+       return contactRepository.findMessagesWithOpenStatus(AppConstants.OPEN);
     }
 }

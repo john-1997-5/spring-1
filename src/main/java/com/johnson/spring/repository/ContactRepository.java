@@ -1,9 +1,18 @@
 package com.johnson.spring.repository;
 
+import com.johnson.spring.model.AppConstants;
 import com.johnson.spring.model.Contact;
+import com.johnson.spring.model.ContactRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+import static com.johnson.spring.model.AppConstants.OPEN;
 
 @Repository
 public class ContactRepository {
@@ -23,5 +32,10 @@ public class ContactRepository {
                 contact.getStatus(),
                 contact.getCreatedAt(),
                 contact.getCreatedBy());
+    }
+
+    public List<Contact> findMessagesWithOpenStatus(String status) {
+        String query = "select * from contact_msg where status = ?";
+        return jdbcTemplate.query(query, ps -> ps.setString(1, status), new ContactRowMapper());
     }
 }

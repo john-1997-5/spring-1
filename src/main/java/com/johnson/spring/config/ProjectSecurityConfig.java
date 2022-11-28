@@ -35,6 +35,7 @@ public class ProjectSecurityConfig {
                     try {
                         auth
                                 .antMatchers("/login").permitAll()
+                                .antMatchers("/displayMessages").hasRole("ADMIN")
                                 .antMatchers("/dashboard").authenticated()
                                 .antMatchers("/home").permitAll()
                                 .antMatchers("/holidays/**").permitAll()
@@ -69,7 +70,7 @@ public class ProjectSecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("johnson")
                 .password("johnson")
-                .roles("USER", "ADMIN")
+                .roles("ADMIN")
                 .build();
 
 
