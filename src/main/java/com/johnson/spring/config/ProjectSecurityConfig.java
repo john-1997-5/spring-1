@@ -26,16 +26,28 @@ public class ProjectSecurityConfig {
                 .build();*/
 
         // se permite el acceso a unas páginas, pero para otras se necesita autenticarse
-        return http.csrf().disable().authorizeHttpRequests(auth -> auth
-                .antMatchers("/home").permitAll()
-                // acceso a holidays y todas sus subpáginas
-                .antMatchers("/holidays/**").permitAll()
-                .antMatchers("/contact").permitAll()
-                .antMatchers("/saveMsg").permitAll()
-                .antMatchers("/courses").authenticated() // necesita autenticarse
-                .antMatchers("/about").permitAll())
-                .httpBasic(Customizer.withDefaults())
-                .build();
+
+        http.csrf().disable().authorizeHttpRequests(auth -> {
+                    try {
+                        auth
+                                .antMatchers("/login").permitAll()
+                                .antMatchers("/dashboard").authenticated()
+                                .antMatchers("/home").permitAll()
+                                .antMatchers("/holidays/**").permitAll()
+                                .antMatchers("/contact").permitAll()
+                                .antMatchers("/saveMsg").permitAll()
+                                .antMatchers("/courses").authenticated() // necesita autenticarse
+                                .antMatchers("/about").permitAll()
+                                .and().formLogin().loginPage("/login")
+                                .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
+                                .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
+                                .and().httpBasic();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
+        return http.build();
     }
 
     @Bean
@@ -53,6 +65,6 @@ public class ProjectSecurityConfig {
                 .build();
 
 
-        return new InMemoryUserDetailsManager(user,admin);
+        return new InMemoryUserDetailsManager(user, admin);
     }
 }
