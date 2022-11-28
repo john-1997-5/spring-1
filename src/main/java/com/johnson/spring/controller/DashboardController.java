@@ -12,7 +12,7 @@ public class DashboardController {
     public String displayDashboard(Model model, Authentication authentication) {
         model.addAttribute("username", authentication.getName());
         model.addAttribute("roles", authentication.getAuthorities().toString());
-        throw new RuntimeException("bad day my boy!");
-        //return "dashboard.html";
+        //throw new RuntimeException("bad day my boy!");
+        return "dashboard.html";
     }
 }
