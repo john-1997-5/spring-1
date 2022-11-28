@@ -22,7 +22,7 @@ public class ProjectSecurityConfig {
                 .build();*/
 
         // se permite el acceso a unas páginas, pero para otras se necesita autenticarse
-        return http.authorizeHttpRequests(auth -> auth
+        return http.csrf().disable().authorizeHttpRequests(auth -> auth
                 .antMatchers("/home").permitAll()
                 // acceso a holidays y todas sus subpáginas
                 .antMatchers("/holidays/**").permitAll()
