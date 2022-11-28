@@ -20,21 +20,19 @@ public class HomeController {
     ContactService contactService;
 
     /**
-     * @ModelAttribute
      * @param contact
      * @param errors
      * @return
+     * @ModelAttribute
      */
     @PostMapping("/saveMsg")
     public String saveMessage(@Valid @ModelAttribute("contact") Contact contact, Errors errors) {
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             log.error("Contact form validation failed due to: {}", errors.toString());
             return "contact.html"; // mantiene la misma sesión (no refresca la página)
         }
         boolean messageSaved = contactService.saveMessage(contact);
-        contactService.setCounter(contactService.getCounter() + 1);
-        log.info("saved message? -> {}", messageSaved);
-        log.info("ContactService Bean counter: {}\n", contactService.getCounter());
+        log.info(messageSaved ? "messaged saved successfully!" : "error while saving message");
         return "redirect:/contact"; // ejecuta dicho endpoint nuevamente (refresco)
     }
 
