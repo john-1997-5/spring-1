@@ -27,7 +27,11 @@ public class ProjectSecurityConfig {
 
         // se permite el acceso a unas páginas, pero para otras se necesita autenticarse
 
-        http.csrf().disable().authorizeHttpRequests(auth -> {
+        http.csrf()
+                .ignoringAntMatchers("/saveMsg") // desactiva csrf para este endpoint
+                .ignoringAntMatchers("/h2-console/**") // desactiva csrf para este endpoint
+                .and()
+                .authorizeHttpRequests(auth -> {
                     try {
                         auth
                                 .antMatchers("/login").permitAll()
@@ -41,12 +45,16 @@ public class ProjectSecurityConfig {
                                 .and().formLogin().loginPage("/login")
                                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
                                 .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
+                                .and().authorizeHttpRequests().antMatchers("h2-console/**").permitAll()
                                 .and().httpBasic();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                 }
         );
+        // Spring security detecta como issue las páginas que usan frameOptions
+        // h2 las usa así que hay que hacer que no las detecte desactivandolas
+        http.headers().frameOptions().disable();
         return http.build();
     }
 
