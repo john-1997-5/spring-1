@@ -1,5 +1,6 @@
 package com.johnson.spring.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@Slf4j
 public class LoginController {
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
@@ -21,7 +23,6 @@ public class LoginController {
             @RequestParam(required = false) String error,
             @RequestParam(required = false) String logout,
             Model model) {
-
         String message = "";
         if (error != null) {
             message = "Username or Password is incorrect!";
@@ -30,7 +31,7 @@ public class LoginController {
         if (logout != null) {
             message = "Succesfully logged out!";
         }
-        model.addAttribute("message",message);
+        model.addAttribute("errorMessage",message);
         return "login.html";
     }
 
