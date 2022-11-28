@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.johnson.spring.model.AppConstants.OPEN;
@@ -37,5 +39,16 @@ public class ContactRepository {
     public List<Contact> findMessagesWithOpenStatus(String status) {
         String query = "select * from contact_msg where status = ?";
         return jdbcTemplate.query(query, ps -> ps.setString(1, status), new ContactRowMapper());
+    }
+
+    public int updateMsgStatus(int contactId, String name, String status) {
+        String query = "update contact_msg set status = ?, updated_by = ?, updated_at = ? where contact_id = ?";
+        return jdbcTemplate.update(query, ps -> {
+                                ps.setString(1, status);
+                                ps.setString(2, name);
+                                ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+                                ps.setInt(4, contactId);
+                                }
+        );
     }
 }
